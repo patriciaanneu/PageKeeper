@@ -4,6 +4,8 @@ dotenv.config();
 import morgan from 'morgan';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import connectDB from './config/db.js';
 import authRoutes from './routes/authRoute.js';
 import bookRoutes from './routes/booksRoute.js';
@@ -18,6 +20,11 @@ app.use(express.json());
 //parse cookies
 app.use(cookieParser());
 
+// serve uploaded files from backend/uploads at /uploads
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
+
 //routes
 app.use('/api/auth', authRoutes);
 app.use('/api/books', bookRoutes);
@@ -30,7 +37,7 @@ if (process.env.NODE_ENV !== 'test') {
   connectDB()
     .then(() => {
       app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
+        console.log(`Server running on PORT: ${PORT}`);
       });
     })
     .catch((err) => {

@@ -1,4 +1,6 @@
 import Book from '../models/Book.js';
+import fs from 'fs';
+import path from 'path';
 
 //allowed values for sheld and read status
 const validShelf = ['Wishlist', 'Owned'];
@@ -163,11 +165,45 @@ export const updateShelf = async (req, res) => {
             const isOwner = owner && (typeof owner.equals === 'function' ? owner.equals(req.user.id) : owner.toString() === req.user.id);
             if (!isOwner) return res.status(403).json({error: 'Not authorized'});
         }
-        book.shelf = shelf;
-        await book.save();
-        res,json({book});
+                book.shelf = shelf;
+                await book.save();
+                res.json({book});
     } catch (err) {
         res.status(500).json({error: 'Server error'});
+    }
+};
+
+// upload a cover image for a book (ownership required)
+export const uploadCover = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const book = req.resource || (await Book.findById(id));
+        if (!book) return res.status(404).json({ error: 'Book not found' });
+        if (!req.resource) {
+            const owner = book.createdBy;
+            const isOwner = owner && (typeof owner.equals === 'function' ? owner.equals(req.user.id) : owner.toString() === req.user.id);
+            if (!isOwner) return res.status(403).json({ error: 'Not authorized' });
+        }
+
+        if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
+
+        const uploadsDir = path.join(process.cwd(), 'uploads');
+
+        // remove old cover file if present
+        if (book.coverImage) {
+            const oldFilename = path.basename(book.coverImage);
+            const oldPath = path.join(uploadsDir, oldFilename);
+            if (fs.existsSync(oldPath)) {
+                try { fs.unlinkSync(oldPath); } catch (e) { console.warn('Failed to remove old cover', e); }
+            }
+        }
+
+        book.coverImage = `/uploads/${req.file.filename}`;
+        await book.save();
+        res.json({ book });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
     }
 };
 
