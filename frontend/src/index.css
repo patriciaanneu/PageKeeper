@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Space Grotesk', sans-serif;
+    background: #EEE2D6;
+    color: #2E281A;
+}
