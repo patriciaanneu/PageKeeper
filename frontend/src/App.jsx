@@ -1,18 +1,19 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import NavBar from './components/NavBar'
 import HomePage from './pages/HomePage'
+import Layout from './components/Layout'
+import { AuthProvider } from './contexts/AuthContext'
+import RequireAuth from './components/RequireAuth'
 
 export default function App() {
   return (
-    <div className="app">
-      <NavBar />
-      <main>
+    <AuthProvider>
+      <Layout>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          
-        </Routes>
-      </main>
-    </div>
+        <Route path='/' element={<HomePage />} />
+        
+      </Routes>
+      </Layout>
+    </AuthProvider>
   )
 }
