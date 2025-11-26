@@ -4,6 +4,8 @@ import HomePage from './pages/HomePage'
 import Layout from './components/Layout'
 import { AuthProvider } from './contexts/AuthContext'
 import RequireAuth from './components/RequireAuth'
+import Features from './pages/Features'
+
 
 export default function App() {
   return (
@@ -11,6 +13,7 @@ export default function App() {
       <Layout>
         <Routes>
         <Route path='/' element={<HomePage />} />
+        <Route path='/features' element={<Features />} />
         
       </Routes>
       </Layout>
