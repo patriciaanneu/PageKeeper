@@ -15,9 +15,13 @@ const PORT = process.env.PORT || 3000;
 
 //middlewares
 app.use(morgan('dev'));
-app.use(cors());
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
+app.use(cors({
+  origin: FRONTEND_URL,
+  credentials: true
+}));
 app.use(express.json());
-//parse cookies
+// parse cookies
 app.use(cookieParser());
 
 // serve uploaded files from backend/uploads at /uploads

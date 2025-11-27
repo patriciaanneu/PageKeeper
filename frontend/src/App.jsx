@@ -6,6 +6,7 @@ import { AuthProvider } from './contexts/AuthContext'
 import RequireAuth from './components/RequireAuth'
 import Features from './pages/Features'
 import Contact from './pages/Contact'
+import Register from './pages/Register'
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Route path='/' element={<HomePage />} />
         <Route path='/features' element={<Features />} />
         <Route path='/contact' element={<Contact />} />
+        <Route path='/register' element={<Register />} />
       </Routes>
       </Layout>
     </AuthProvider>
