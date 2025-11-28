@@ -40,9 +40,16 @@ api.interceptors.response.use(
             isRefreshing = true
 
             try {
-                await axios.post(`${baseURL}/auth/refresh`, {}, { withCredentials: true })
+                const refreshRes = await axios.post(`${baseURL}/auth/refresh`, {}, { withCredentials: true })
+                const newToken = refreshRes?.data?.token
+                if (newToken) {
+                    // set default Authorization for future requests
+                    api.defaults.headers.common['Authorization'] = `Bearer ${newToken}`
+                    // also set header for the original request before retry
+                    originalRequest.headers['Authorization'] = `Bearer ${newToken}`
+                }
                 isRefreshing = false
-                processQueue(null, true)
+                processQueue(null, newToken)
                 return api(originalRequest)
             } catch (err) {
                 isRefreshing = false

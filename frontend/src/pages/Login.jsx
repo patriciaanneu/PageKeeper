@@ -1,16 +1,26 @@
-import React, { useState } from 'react'
-import api from '../api/client'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [msg, setMsg] = useState('')
 
+  const navigate = useNavigate()
+  const { login, user } = useAuth()
+
+  // If the user is already authenticated, redirect to books list
+  useEffect(() => {
+    if (user) navigate('/books')
+  }, [user, navigate])
+
   async function submit(e) {
     e.preventDefault()
     try {
-      await api.post('/auth/login', { email, password })
-      setMsg('Logged in — refresh to see protected data')
+      await login({ email, password })
+      // redirect to books list on success
+      navigate('/books')
     } catch (err) {
       setMsg(err?.response?.data?.message || 'Login failed')
     }

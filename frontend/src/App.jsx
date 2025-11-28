@@ -8,6 +8,8 @@ import Features from './pages/Features'
 import Contact from './pages/Contact'
 import Register from './pages/Register'
 import Login from './pages/Login'
+import Profile from './pages/Profile'
+import BooksList from './pages/BooksList'
 
 export default function App() {
   return (
@@ -19,6 +21,8 @@ export default function App() {
         <Route path='/contact' element={<Contact />} />
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/profile' element={<RequireAuth><Profile /></RequireAuth>} />
+        <Route path='/books' element={<RequireAuth><BooksList /></RequireAuth>} />
       </Routes>
       </Layout>
     </AuthProvider>

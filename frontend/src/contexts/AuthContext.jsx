@@ -26,7 +26,12 @@ export function AuthProvider({ children }){
     }, [])
 
     const login = async (credentials) => {
-        const res = await api.post('auth/login', credentials)
+        const res = await api.post('/auth/login', credentials)
+        // set Authorization header for subsequent requests
+        const token = res.data?.token
+        if (token) {
+            api.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        }
         //backend should return user in response; otherwise you may call /auth/me after login
         setUser(res.data?.user ?? null)
         return res.data

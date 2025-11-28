@@ -10,11 +10,13 @@ export default function Layout({ children }){
   const { loading, user } = useAuth()
   const { pathname } = useLocation()
 
-  // Routes where the top Navbar should appear for anonymous users
+  //routes where the Navbar should appear for anonymous users
   const publicNavbarPaths = ['/', '/features', '/contact', '/login', '/register']
-  const showPublicNavbar = publicNavbarPaths.includes(pathname)
-
-  const mainShiftClass = user ? 'md:ml-64' : ''
+  const isPublicPath = publicNavbarPaths.includes(pathname)
+  
+  // Only show the Sidebar when the user is authenticated and NOT on a public page
+  const showNavbar = isPublicPath || !user
+  const mainShiftClass = (user && !isPublicPath) ? 'md:ml-64' : ''
   // If we're still checking auth, hold rendering of the full layout
   if (loading) {
     return (
@@ -26,11 +28,7 @@ export default function Layout({ children }){
 
   return (
     <div className='app'>
-      {user ? (
-        <Sidebar />
-      ) : (
-        showPublicNavbar && <NavBar />
-      )}
+      {showNavbar ? <NavBar /> : <Sidebar />}
 
       <main className={`${mainShiftClass} transition-all`}>
         {children}

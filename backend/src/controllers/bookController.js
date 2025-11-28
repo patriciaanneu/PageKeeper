@@ -2,7 +2,7 @@ import Book from '../models/Book.js';
 import fs from 'fs';
 import path from 'path';
 
-//allowed values for sheld and read status
+//allowed values for shelf and read status
 const validShelf = ['Wishlist', 'Owned'];
 const validStatus = ['Not Read', 'Reading', 'Read', 'DNF'];
 
