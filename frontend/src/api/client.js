@@ -7,7 +7,6 @@ const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api'
 const api = axios.create({
     baseURL,
     withCredentials: true,
-    headers: { 'Content-Type': 'application/json' }
 })
 
 //refresh handling queue to avoid multiple simultaneous refresh requests

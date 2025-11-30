@@ -23,7 +23,10 @@ export default function NavBar(){
         </div>
 
         <div className='absolute left-1/2 transform -translate-x-1/2'>
-          <div className='font-semibold text-2xl'>PageKeeper</div>
+          <div className='flex items-center gap-2'>
+            <img src='/images/logo.svg' alt='PageKeeper logo' className='w-8 h-8' />
+            <div className='font-semibold text-2xl'>PageKeeper</div>
+          </div>
         </div>
 
         <div className='flex items-center gap-4'>

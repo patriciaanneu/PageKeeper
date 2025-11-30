@@ -32,7 +32,7 @@ export default function BooksList() {
   return (
     <div className='max-w-4xl mx-auto px-4 py-6'>
       <div className='flex items-center justify-between mb-4'>
-        <h2 className='text-xl font-semibold'>Your Books</h2>
+        <h2 className='text-xl font-semibold'>My Books</h2>
         <Link to='/books/new' className='bg-[#594A3E] text-white px-3 py-2 rounded hover:opacity-95'>Add Book</Link>
       </div>
       {books.length === 0 && <p className='text-gray-600'>No books found.</p>}
@@ -41,7 +41,11 @@ export default function BooksList() {
           <li key={b._id} className='bg-white border border-gray-200 rounded p-4 flex justify-between items-start'>
             <div className='flex items-start gap-3'>
               {b.coverImage ? (
-                <img src={b.coverImage} alt='cover' className='w-12 h-16 object-cover rounded' />
+                (() => {
+                  const base = api.defaults.baseURL ? api.defaults.baseURL.replace(/\/api\/?$/, '') : ''
+                  const src = b.coverImage.startsWith('/uploads') && base ? `${base}${b.coverImage}` : b.coverImage
+                  return <img src={src} alt='cover' className='w-12 h-16 object-cover rounded' />
+                })()
               ) : (
                 <div className='w-12 h-16 bg-gray-100 border rounded flex items-center justify-center text-xs text-gray-400'>No Image</div>
               )}

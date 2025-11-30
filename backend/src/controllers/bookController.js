@@ -73,6 +73,10 @@ export const createBook = async (req, res) => {
         
     } catch (err) {
         console.error(err);
+        if (err && err.name === 'ValidationError') {
+            // Mongoose validation -> return 400 with details
+            return res.status(400).json({ error: err.message });
+        }
         res.status(500).json({error: 'Server error'});
     }
 };
