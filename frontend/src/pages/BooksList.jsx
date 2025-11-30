@@ -33,7 +33,7 @@ export default function BooksList() {
     <div className='max-w-4xl mx-auto px-4 py-6'>
       <div className='flex items-center justify-between mb-4'>
         <h2 className='text-xl font-semibold'>Your Books</h2>
-        <Link to='/books/new' className='bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700'>Add Book</Link>
+        <Link to='/books/new' className='bg-[#594A3E] text-white px-3 py-2 rounded hover:opacity-95'>Add Book</Link>
       </div>
       {books.length === 0 && <p className='text-gray-600'>No books found.</p>}
       <ul className='space-y-3'>
