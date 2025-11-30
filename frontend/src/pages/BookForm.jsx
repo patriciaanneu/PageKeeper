@@ -94,9 +94,7 @@ export default function BookForm() {
                     
                 }
             }
-            // First create/update the book (JSON). Then, if a cover file was selected,
-            // upload it using the dedicated upload endpoint `/books/:id/cover` which
-            // uses multer on the server.
+
             let savedBook
             if (editMode) {
                 const res = await api.put(`/books/${id}`, current)
@@ -195,7 +193,7 @@ export default function BookForm() {
                 </div>
 
                 <div className='flex gap-2'>
-                    <button className='bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700' type='submit'>Save</button>
+                    <button className='bg-[#594A3E] text-white px-4 py-2 rounded hover:opacity-95' type='submit'>Save</button>
                     <button type='button' className='px-3 py-2 bg-gray-200 rounded' onClick={()=>navigate('/books')}>Cancel</button>
                 </div>
 
