@@ -11,6 +11,8 @@ export default function BooksList() {
   // UI state
   const [query, setQuery] = useState('')
   const [filter, setFilter] = useState('all') // all | owned | wishlist
+  const [sortBy, setSortBy] = useState('none') // 'none' | 'readStatus'
+  const [sortDir, setSortDir] = useState('asc') // 'asc' | 'desc'
 
   useEffect(() => {
     let mounted = true
@@ -38,7 +40,7 @@ export default function BooksList() {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
-    return books.filter(b => {
+    const results = books.filter(b => {
       if (filter === 'owned' && (b.shelf || '').toLowerCase() !== 'owned') return false
       if (filter === 'wishlist' && (b.shelf || '').toLowerCase() !== 'wishlist') return false
       if (!q) return true
@@ -47,7 +49,20 @@ export default function BooksList() {
       const genre = (b.genre || '').toLowerCase()
       return title.includes(q) || author.includes(q) || genre.includes(q)
     })
-  }, [books, query, filter])
+
+    // Sorting: when viewing owned books, allow sorting by readStatus
+    if (filter === 'owned' && sortBy === 'readStatus') {
+      const order = ['Not Read', 'Reading', 'Read', 'DNF']
+      const dir = sortDir === 'asc' ? 1 : -1
+      results.sort((a, b) => {
+        const ia = Math.max(0, order.indexOf(a.readStatus || ''))
+        const ib = Math.max(0, order.indexOf(b.readStatus || ''))
+        return dir * (ia - ib)
+      })
+    }
+
+    return results
+  }, [books, query, filter, sortBy, sortDir])
 
   if (loading) return <p className='text-center py-8'>Loading...</p>
   if (err) return <p className='text-center py-8 text-red-600'>{err}</p>
@@ -66,21 +81,21 @@ export default function BooksList() {
             <div className='text-xs text-gray-500'>Owned</div>
             <div className='text-lg font-semibold'>{counts.owned}</div>
           </div>
-            <div className='text-gray-400'><FiBook size={28} /></div>
+            <div className='text-[#BF7C63]'><FiBook size={28} /></div>
         </div>
         <div className='bg-white border p-4 flex-1 flex items-center justify-between'>
           <div>
             <div className='text-xs text-gray-500'>Wishlist</div>
             <div className='text-lg font-semibold'>{counts.wishlist}</div>
           </div>
-            <div className='text-gray-400'><FiHeart size={28} /></div>
+            <div className='text-[#BF7C63]'><FiHeart size={28} /></div>
         </div>
         <div className='bg-white border p-4 w-40 flex items-center justify-between'>
           <div>
             <div className='text-xs text-gray-500'>Total</div>
             <div className='text-lg font-semibold'>{counts.total}</div>
           </div>
-            <div className='text-gray-400'><FiLayers size={22} /></div>
+            <div className='text-[#BF7C63]'><FiLayers size={22} /></div>
         </div>
       </div>
 
@@ -104,6 +119,22 @@ export default function BooksList() {
             {t === 'all' ? 'All Books' : (t === 'owned' ? 'Owned' : 'Wishlist')}
           </button>
         ))}
+        <div className='ml-2'>
+          {filter === 'owned' && (
+            <div className='flex items-center gap-2'>
+              <label className='text-sm text-gray-600'>Sort:</label>
+              <select value={sortBy} onChange={e=>setSortBy(e.target.value)} className='border rounded px-2 py-1'>
+                <option value='none'>None</option>
+                <option value='readStatus'>Read Status</option>
+              </select>
+              {sortBy === 'readStatus' && (
+                <button onClick={()=>setSortDir(d => d === 'asc' ? 'desc' : 'asc')} className='ml-2 border rounded px-2 py-1 text-sm'>
+                  {sortDir === 'asc' ? 'Asc' : 'Desc'}
+                </button>
+              )}
+            </div>
+          )}
+        </div>
         <div className='ml-auto text-sm text-gray-500'>{filtered.length} result{filtered.length !== 1 ? 's' : ''}</div>
       </div>
 

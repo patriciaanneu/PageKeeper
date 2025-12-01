@@ -6,7 +6,8 @@ import {requireOwnership} from '../middleware/ownership.js';
 import { upload } from '../middleware/upload.js';
 import Book from '../models/Book.js';
 
-router.get('/', bookController.getBooks);
+// only authenticated users may list their books
+router.get('/', authenticate, bookController.getBooks);
 router.get('/:id', bookController.getBook);
 router.post('/', authenticate, bookController.createBook);
 router.put('/:id', authenticate, requireOwnership(Book), bookController.updateBook);

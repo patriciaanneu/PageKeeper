@@ -84,7 +84,10 @@ export const createBook = async (req, res) => {
 //return a list of books
 export const getBooks = async (req, res) => {
     try {
-        const books = await Book.find().populate('createdBy', 'firstName lastName email');
+        // if request is authenticated, return only books created by that user
+        const filter = {}
+        if (req.user && req.user.id) filter.createdBy = req.user.id
+        const books = await Book.find(filter).populate('createdBy', 'firstName lastName email');
         res.json({books});
     } catch (error) {
         res.status(500).json({error: 'Server error'});

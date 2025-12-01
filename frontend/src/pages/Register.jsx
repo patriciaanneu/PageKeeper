@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import api from '../api/client'
 
 export default function Register() {
@@ -7,12 +8,14 @@ export default function Register() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [msg, setMsg] = useState('')
+  const navigate = useNavigate()
 
   async function submit(e) {
     e.preventDefault()
     try {
       await api.post('/auth/register', { firstName, lastName, email, password })
-      setMsg('Registered — proceed to login')
+      // redirect to login after successful registration
+      navigate('/login')
     } catch (err) {
       setMsg(err?.response?.data?.message || 'Register failed')
     }

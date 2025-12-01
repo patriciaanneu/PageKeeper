@@ -11,6 +11,7 @@ import Login from './pages/Login'
 import Profile from './pages/Profile'
 import BooksList from './pages/BooksList'
 import BookForm from './pages/BookForm'
+import BookDetail from './pages/BookDetail'
 
 export default function App() {
   return (
@@ -25,6 +26,8 @@ export default function App() {
         <Route path='/profile' element={<RequireAuth><Profile /></RequireAuth>} />
         <Route path='/books' element={<RequireAuth><BooksList /></RequireAuth>} />
         <Route path='/books/new' element={<RequireAuth><BookForm /></RequireAuth>} />
+        <Route path='/books/:id' element={<RequireAuth><BookDetail /></RequireAuth>} />
+        <Route path='/books/:id/edit' element={<RequireAuth><BookForm /></RequireAuth>} />
       </Routes>
       </Layout>
     </AuthProvider>

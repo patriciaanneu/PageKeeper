@@ -8,7 +8,7 @@ const defaultData = {
     genre: '',
     pages: '',
     isbn: '',
-    edition: '',
+    publicationYear: '',
     notes: '',
     shelf: '',
     readStatus: '',
@@ -48,6 +48,10 @@ export default function BookForm() {
                         // backend returns { book }
                         const book = res?.data?.book ?? res?.data
                         const d = {...defaultData, ...book}
+                        // If older records used `edition` for year, fall back to it
+                        if ((!d.publicationYear || d.publicationYear === '') && book?.edition) {
+                            d.publicationYear = book.edition
+                        }
                         setData(d)
                     }
             } catch (e) {
@@ -120,7 +124,7 @@ export default function BookForm() {
 
     return (
         <div className='max-w-xl mx-auto px-4 py-8'>
-            <form onSubmit={submit} className='bg-white border border-gray-200 rounded-lg p-6 space-y-4'>
+            <form onSubmit={submit} className='bg-white border border-gray-200 p-6 space-y-4'>
                 <h2 className='text-lg font-semibold'>{editMode? 'Edit Book' : 'Add Book'}</h2>
 
                 <div>
@@ -154,8 +158,8 @@ export default function BookForm() {
                         {errors.isbn && <p className='text-sm text-red-600'>{errors.isbn}</p>}
                     </div>
                     <div>
-                        <label className='block text-sm text-gray-700 mb-1'>Edition</label>
-                        <input className='w-full border px-3 py-2' value={data.edition} onChange={e=>setField('edition',e.target.value)} />
+                        <label className='block text-sm text-gray-700 mb-1'>Published Year</label>
+                        <input className='w-full border px-3 py-2' value={data.publicationYear} onChange={e=>setField('publicationYear',e.target.value)} />
                     </div>
                 </div>
 
