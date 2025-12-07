@@ -124,67 +124,67 @@ export default function BookForm() {
 
     return (
         <div className='max-w-xl mx-auto px-4 py-8'>
-            <form onSubmit={submit} className='bg-white border border-gray-200 p-6 space-y-4'>
+            <form onSubmit={submit} className='bg-[#DCD7C9] border border-[#DCD7C9] shadow-sm p-6 space-y-4'>
                 <h2 className='text-lg font-semibold'>{editMode? 'Edit Book' : 'Add Book'}</h2>
 
                 <div>
-                    <label className='block text-sm text-gray-700 mb-1'>Title <span className='text-red-600'>*</span></label>
-                    <input className='w-full border px-3 py-2' value={data.title} onChange={e => setField('title', e.target.value)} />
+                    <label className='block text-sm mb-1'>Title <span className='text-red-600'>*</span></label>
+                    <input className='w-full border border-[#DCD7C9] bg-[#EFEFEF] px-3 py-2' value={data.title} onChange={e => setField('title', e.target.value)} />
                     {errors.title && <p className='text-sm text-red-600'>{errors.title}</p>}
                 </div>
 
                 <div>
-                    <label className='block text-sm text-gray-700 mb-1'>Author <span className='text-red-600'>*</span></label>
-                    <input className='w-full border px-3 py-2' value={data.author} onChange={e=>setField('author',e.target.value)} />
+                    <label className='block text-sm mb-1'>Author <span className='text-red-600'>*</span></label>
+                    <input className='w-full border border-[#DCD7C9] bg-[#EFEFEF] px-3 py-2' value={data.author} onChange={e=>setField('author',e.target.value)} />
                     {errors.author && <p className='text-sm text-red-600'>{errors.author}</p>}
                 </div>
                 
                 <div className='grid grid-cols-2 gap-3'>
                     <div>
-                        <label className='block text-sm text-gray-700 mb-1'>Genre</label>
-                        <input className='w-full border px-3 py-2' value={data.genre} onChange={e=>setField('genre',e.target.value)} />
+                        <label className='block text-sm mb-1'>Genre</label>
+                        <input className='w-full border border-[#DCD7C9] bg-[#EFEFEF] px-3 py-2' value={data.genre} onChange={e=>setField('genre',e.target.value)} />
                     </div>
                     <div>
-                        <label className='block text-sm text-gray-700 mb-1'>Pages</label>
-                        <input className='w-full border px-3 py-2' value={data.pages} onChange={e=>setField('pages',e.target.value)} />
+                        <label className='block text-sm mb-1'>Pages</label>
+                        <input className='w-full border border-[#DCD7C9] bg-[#EFEFEF] px-3 py-2' value={data.pages} onChange={e=>setField('pages',e.target.value)} />
                         {errors.pages && <p className='text-sm text-red-600'>{errors.pages}</p>}
                     </div>
                 </div>
 
                 <div className='grid grid-cols-2 gap-3'>
                     <div>
-                        <label className='block text-sm text-gray-700 mb-1'>ISBN</label>
-                        <input className='w-full border px-3 py-2' value={data.isbn} onChange={e=>setField('isbn',e.target.value)} />
+                        <label className='block text-sm mb-1'>ISBN</label>
+                        <input className='w-full border border-[#DCD7C9] bg-[#EFEFEF] px-3 py-2' value={data.isbn} onChange={e=>setField('isbn',e.target.value)} />
                         {errors.isbn && <p className='text-sm text-red-600'>{errors.isbn}</p>}
                     </div>
                     <div>
-                        <label className='block text-sm text-gray-700 mb-1'>Published Year</label>
-                        <input className='w-full border px-3 py-2' value={data.publicationYear} onChange={e=>setField('publicationYear',e.target.value)} />
+                        <label className='block text-sm mb-1'>Published Year</label>
+                        <input className='w-full border border-[#DCD7C9] bg-[#EFEFEF] px-3 py-2' value={data.publicationYear} onChange={e=>setField('publicationYear',e.target.value)} />
                     </div>
                 </div>
 
                 <div className='grid grid-cols-2 gap-3'>
                     <div>
-                        <label className='block text-sm text-gray-700 mb-1'>Shelf</label>
-                        <select className='w-full border px-3 py-2' value={data.shelf} onChange={e=>setField('shelf',e.target.value)}>
+                        <label className='block text-sm mb-1'>Shelf</label>
+                        <select className='w-full border border-[#DCD7C9] bg-[#EFEFEF] px-3 py-2' value={data.shelf} onChange={e=>setField('shelf',e.target.value)}>
                             {SHELF_OPTIONS.map(s => <option key={s} value={s}>{s || '— Select —'}</option>)}
                         </select>
                     </div>
                     <div>
-                        <label className='block text-sm text-gray-700 mb-1'>Read Status</label>
-                        <select className='w-full border px-3 py-2' value={data.readStatus} onChange={e=>setField('readStatus',e.target.value)}>
+                        <label className='block text-sm mb-1'>Read Status</label>
+                        <select className='w-full border border-[#DCD7C9] bg-[#EFEFEF] px-3 py-2' value={data.readStatus} onChange={e=>setField('readStatus',e.target.value)}>
                             {READ_STATUS.map(s => <option key={s} value={s}>{s || '— Select —'}</option>)}
                         </select>
                     </div>
                 </div>
 
                 <div>
-                    <label className='block text-sm text-gray-700 mb-1'>Notes</label>
-                    <textarea className='w-full border px-3 py-2' value={data.notes} onChange={e=>setField('notes',e.target.value)} rows={4} />
+                    <label className='block text-sm mb-1'>Notes</label>
+                    <textarea className='w-full border border-[#DCD7C9] bg-[#EFEFEF] px-3 py-2' value={data.notes} onChange={e=>setField('notes',e.target.value)} rows={4} />
                 </div>
 
                 <div>
-                    <label className='block text-sm text-gray-700 mb-1'>Cover Image</label>
+                    <label className='block text-sm mb-1'>Cover Image</label>
                     <div>
                         <input type='file' accept='image/*' onChange={handleFile} />
                     </div>
@@ -197,11 +197,11 @@ export default function BookForm() {
                 </div>
 
                 <div className='flex gap-2'>
-                    <button className='bg-[#594A3E] text-white px-4 py-2 rounded hover:opacity-95' type='submit'>Save</button>
-                    <button type='button' className='px-3 py-2 bg-gray-200 rounded' onClick={()=>navigate('/books')}>Cancel</button>
+                    <button className='bg-[#A27B5B] text-white px-4 py-2 rounded hover:opacity-95' type='submit'>Save</button>
+                    <button type='button' className='px-3 py-2 bg-[#EFEFEF] rounded hover:opacity-85' onClick={()=>navigate('/books')}>Cancel</button>
                 </div>
 
-                {msg && <p className='text-sm text-red-600'>{msg}</p>}
+                {msg && <p className='text-sm text-[#632111]'>{msg}</p>}
             </form>
         </div>
     )

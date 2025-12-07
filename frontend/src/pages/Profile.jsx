@@ -14,10 +14,10 @@ export default function Profile(){
 
   return (
     <div className='max-w-3xl mx-auto px-4 py-8'>
-      <div className='bg-white border border-gray-200 rounded-lg p-6'>
+      <div className='bg-[#DCD7C9] border border-[#DCD7C9] p-6 shadow-sm'>
         <h1 className='text-2xl font-semibold mb-4'>Profile</h1>
         {!user ? (
-          <p className='text-gray-600'>No user data available.</p>
+          <p className='text-[#3F4E4F]'>No user data available.</p>
         ) : (
           <div className='space-y-3'>
             <div>
@@ -30,7 +30,7 @@ export default function Profile(){
             </div>
             <div>
               <span className='font-medium'>ID: </span>
-              <span className='text-sm text-gray-500'>{user.id ?? user._id}</span>
+              <span className='text-sm text-[#3F4E4F]'>{user.id ?? user._id}</span>
             </div>
           </div>
         )}

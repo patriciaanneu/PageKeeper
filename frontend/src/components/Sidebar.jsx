@@ -21,11 +21,11 @@ export default function Sidebar(){
   const displayName = user ? `${user.firstName || ''} ${user.lastName || ''}`.trim() || user.email : 'Account'
 
   return (
-    <aside className='fixed left-0 top-0 h-screen w-64 bg-white border-r border-gray-200 p-4 hidden md:flex flex-col'>
+    <aside className='fixed left-0 top-0 h-screen w-64 bg-[#2C3639] border-r border-gray-200 p-4 hidden md:flex flex-col text-[#EFEFEF]'>
       {/* Site name */}
       <div className='px-1'>
         <div className='flex items-center gap-2'>
-          <img src='/images/logo.svg' alt='PageKeeper logo' className='w-6 h-6' />
+          <img src='/images/inverted.png' alt='PageKeeper logo' className='w-6 h-6' />
           <div className='font-bold text-lg'>PageKeeper</div>
         </div>
       </div>
@@ -37,14 +37,14 @@ export default function Sidebar(){
       <nav className='flex-1'>
         <ul className='space-y-2'>
           <li>
-            <NavLink to='/books' className={({isActive}) => isActive ? 'flex items-center px-3 py-2 rounded bg-gray-100' : 'flex items-center px-3 py-2 rounded hover:bg-gray-50'}>
-              <FiBook className='w-5 h-5 mr-3 text-gray-600' aria-hidden='true' />
+            <NavLink to='/books' end className={({isActive}) => isActive ? 'flex items-center px-3 py-2 rounded bg-white text-[#2C3639]' : 'flex items-center px-3 py-2 rounded bg-[#2C3639] text-[#EFEFEF] hover:opacity-85'}>
+              <FiBook className='w-5 h-5 mr-3' aria-hidden='true' />
               <span>My Books</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to='/books/new' className={({isActive}) => isActive ? 'flex items-center px-3 py-2 rounded bg-gray-100' : 'flex items-center px-3 py-2 rounded hover:bg-gray-50'}>
-              <FiPlus className='w-5 h-5 mr-3 text-gray-600' aria-hidden='true' />
+            <NavLink to='/books/new' className={({isActive}) => isActive ? 'flex items-center px-3 py-2 rounded bg-white text-[#2C3639]' : 'flex items-center px-3 py-2 rounded bg-[#2C3639] text-[#EFEFEF] hover:opacity-85'}>
+              <FiPlus className='w-5 h-5 mr-3' aria-hidden='true' />
               <span>Add Book</span>
             </NavLink>
           </li>
@@ -62,19 +62,19 @@ export default function Sidebar(){
           onClick={() => navigate('/profile')}
           onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') navigate('/profile') }}
           aria-label='Open profile'
-          className='flex items-center gap-3 px-1 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#594A3E]'
+          className='flex items-center gap-3 px-1 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A27B5B]'
         >
-          <div className='w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-sm font-medium text-gray-700'>
+          <div className='w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-sm font-medium text-[#2C3639]'>
             {initials || 'U'}
           </div>
           <div>
-            <div className='text-sm text-gray-600'>Profile</div>
-            <div className='font-medium text-gray-900'>{displayName}</div>
+            <div className='text-sm text-[#EFEFEF]'>Profile</div>
+            <div className='font-medium text-[#EFEFEF]'>{displayName}</div>
           </div>
         </div>
 
         <div className='mt-4 px-1'>
-          <button onClick={onLogout} className='w-full bg-[#594A3E] text-white py-2 rounded hover:opacity-95'>Logout</button>
+          <button onClick={onLogout} className='w-full bg-[#A27B5B] text-white py-2 rounded hover:opacity-95'>Logout</button>
         </div>
       </div>
     </aside>

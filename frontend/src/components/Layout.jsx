@@ -21,7 +21,7 @@ export default function Layout({ children }){
   if (loading) {
     return (
       <div className='app min-h-screen flex items-center justify-center'>
-        <ThreeDot text='Loading...' size='large' color='#BF7C63' />
+        <ThreeDot text='Loading...' size='large' color='#A27B5B' />
       </div>
     )
   }
