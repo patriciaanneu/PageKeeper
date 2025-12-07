@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url';
 import connectDB from './config/db.js';
 import authRoutes from './routes/authRoute.js';
 import bookRoutes from './routes/booksRoute.js';
+import uploadsRoutes from './routes/uploadsRoute.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -32,6 +33,7 @@ app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 //routes
 app.use('/api/auth', authRoutes);
 app.use('/api/books', bookRoutes);
+app.use('/api/uploads', uploadsRoutes);
 
 app.get('/', (req, res) => {
     res.json({message: 'Book Catalogue API'});

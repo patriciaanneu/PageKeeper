@@ -110,9 +110,26 @@ export default function BookForm() {
 
             if (coverFile && savedBook && (savedBook._id || savedBook.id)) {
                 const bookId = savedBook._id || savedBook.id
-                const form = new FormData()
-                form.append('cover', coverFile)
-                await api.post(`/books/${bookId}/cover`, form)
+                
+                // Get presigned URL from backend
+                const signRes = await api.post('/uploads/sign', {
+                    fileName: coverFile.name,
+                    fileType: coverFile.type,
+                })
+                
+                const { presignedUrl, publicUrl } = signRes.data
+                
+                // Upload file directly to R2 using presigned URL
+                await fetch(presignedUrl, {
+                    method: 'PUT',
+                    body: coverFile,
+                    headers: {
+                        'Content-Type': coverFile.type,
+                    },
+                })
+                
+                // Save public URL to book
+                await api.put(`/books/${bookId}`, { coverImage: publicUrl })
             }
             navigate('/books')
         } catch (err) {
