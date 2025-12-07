@@ -42,7 +42,7 @@ export default function Login() {
         <div>
           <button className='bg-[#A27B5B] text-white px-4 py-2 rounded hover:opacity-95' type='submit'>Login</button>
         </div>
-        {msg && <p className='text-sm text-[#632111]'>{msg}</p>}
+        {msg && <p className='text-sm text-[#2C3639]'>{msg}</p>}
       </form>
     </div>
   )

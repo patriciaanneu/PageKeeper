@@ -1,0 +1,16 @@
+[build]
+  base = "frontend"
+  command = "npm run build"
+  publish = "frontend/dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[context.production.environment]
+  VITE_API_URL = "https://your-render-backend.onrender.com/api"
+  VITE_GITHUB_URL = "https://github.com/patriciaanneu"
+  VITE_EMAILJS_SERVICE_ID = "service_k29wzvo"
+  VITE_EMAILJS_TEMPLATE_ID = "template_r5bxqvs"
+  VITE_EMAILJS_PUBLIC_KEY = "_TT620hcoeQn0QiBn"
