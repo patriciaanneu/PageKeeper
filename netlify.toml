@@ -9,7 +9,7 @@
   status = 200
 
 [context.production.environment]
-  VITE_API_URL = "https://your-render-backend.onrender.com/api"
+  VITE_API_URL = "https://pagekeeper.onrender.com/api"
   VITE_GITHUB_URL = "https://github.com/patriciaanneu"
   VITE_EMAILJS_SERVICE_ID = "service_k29wzvo"
   VITE_EMAILJS_TEMPLATE_ID = "template_r5bxqvs"
