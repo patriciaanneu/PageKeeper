@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import api from '../api/client'
 
 export default function BookDetail(){
   const { id } = useParams()
+  const navigate = useNavigate()
   const [book, setBook] = useState(null)
   const [err, setErr] = useState('')
 
@@ -24,6 +25,20 @@ export default function BookDetail(){
     return ()=>{ mounted = false }
   },[id])
 
+  async function handleDelete() {
+    if (!window.confirm('Are you sure you want to delete this book?')) {
+      return;
+    }
+
+    try {
+      await api.delete(`/books/${id}`);
+      navigate('/books');
+    } catch (err) {
+      setErr(err?.response?.data?.message || 'Failed to delete book');
+    }
+  }
+
+  
   if(err) return <p className='text-center py-8 text-[#632111]'>{err}</p>
   if(!book) return <p className='text-center py-8'>Loading...</p>
 
@@ -63,6 +78,11 @@ export default function BookDetail(){
 
         <div className='flex gap-2'>
           <Link to={`/books/${id}/edit`} className='px-3 py-2 bg-[#A27B5B] text-[#EFEFEF] rounded hover:opacity-95'>Edit</Link>
+          <button
+            onClick={handleDelete}
+            className='px-3 py-2 bg-[#632111] text-[#EFEFEF] rounded hover:opacity-95'
+            > Delete
+          </button>
           <Link to='/books' className='px-3 py-2 bg-[#EFEFEF] rounded hover:opacity-85'>Back</Link>
         </div>
       </div>
