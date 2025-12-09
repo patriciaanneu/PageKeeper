@@ -24,6 +24,8 @@ function validateFields(data) {
     if(!data.author || data.author.trim().length < 1) errors.author = 'Author is required'
     if(data.pages && (!/^[0-9]+$/.test(String(data.pages)) || Number(data.pages) <= 0)) errors.pages = 'Pages must be a positive number'
     if(data.isbn && !/^[0-9\- ]+$/.test(data.isbn)) errors.isbn = 'ISBN should contain digits, spaces or dashes'
+    if(!data.shelf) errors.shelf = 'Shelf is required'
+    if(!data.readStatus) errors.readStatus = 'Read status is required'
     return errors
 }
 
@@ -182,16 +184,18 @@ export default function BookForm() {
 
                 <div className='grid grid-cols-2 gap-3'>
                     <div>
-                        <label className='block text-sm mb-1'>Shelf</label>
+                        <label className='block text-sm mb-1'>Shelf <span className='text-red-600'>*</span></label>
                         <select className='w-full border border-[#DCD7C9] bg-[#EFEFEF] px-3 py-2' value={data.shelf} onChange={e=>setField('shelf',e.target.value)}>
                             {SHELF_OPTIONS.map(s => <option key={s} value={s}>{s || '— Select —'}</option>)}
                         </select>
+                        {errors.shelf && <p className='text-sm text-[#632111]'>{errors.shelf}</p>}
                     </div>
                     <div>
-                        <label className='block text-sm mb-1'>Read Status</label>
+                        <label className='block text-sm mb-1'>Read Status <span className='text-red-600'>*</span></label>
                         <select className='w-full border border-[#DCD7C9] bg-[#EFEFEF] px-3 py-2' value={data.readStatus} onChange={e=>setField('readStatus',e.target.value)}>
                             {READ_STATUS.map(s => <option key={s} value={s}>{s || '— Select —'}</option>)}
                         </select>
+                        {errors.readStatus && <p className='text-sm text-[#632111]'>{errors.readStatus}</p>}
                     </div>
                 </div>
 
